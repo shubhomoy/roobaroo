@@ -4,6 +4,7 @@ var fs = require('fs');
 var request = require('request');
 var ytdl = require('youtube-dl');
 var ffmpeg = require('fluent-ffmpeg');
+var Utils = require('./utils');
 
 var app = express();
 
@@ -16,15 +17,11 @@ app.get('/top-artists', function (request, response){
   response.sendFile(path.resolve(__dirname, 'index.html'))
 });
 
-
-const YOUTUBE_SEARCH_URL = "https://www.googleapis.com/youtube/v3/search?part=snippet&q=";
-const YOUTUBE_API_KEY = 'AIzaSyAdfnHdZ4bDpty7baQC9PVkdnSqyuSql28';
-
 app.get('/api/fetchsong', function(req, res) {
 	var mp4 = './video.mp4';
-	var outputFile = './output/' + req.query.name + '.mp3';
+	var outputFile = './output/music/' + req.query.name + '.mp3';
 	var stream = fs.createWriteStream(mp4);
-	request(encodeURI(YOUTUBE_SEARCH_URL + req.query.name + '&key=' + YOUTUBE_API_KEY), function(error, response, body) {
+	request(Utils.youtubeSearchUrlBuilder(req.query.name), function(error, response, body) {
 		response = JSON.parse(body);
 		if(response.items.length > 0) {
 			var item = response.items[0];

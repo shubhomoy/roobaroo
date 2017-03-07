@@ -48993,7 +48993,7 @@ var Home = function (_React$Component) {
 		value: function render() {
 			return _react2.default.createElement(
 				'div',
-				null,
+				{ className: 'main_container' },
 				_react2.default.createElement(
 					'div',
 					{ className: 'col-md-6 col-md-offset-3' },
@@ -49328,11 +49328,63 @@ var Player = function (_React$Component) {
 	_createClass(Player, [{
 		key: 'render',
 		value: function render() {
-			return _react2.default.createElement(
-				'div',
-				{ className: 'player_container' },
-				this.props.player.playing
-			);
+			if (this.props.player != null) {
+				return _react2.default.createElement(
+					'div',
+					{ className: 'player_container' },
+					_react2.default.createElement(
+						'div',
+						{ className: 'player_track_info col-md-3' },
+						_react2.default.createElement(
+							'div',
+							{ className: 'col-sm-2' },
+							_react2.default.createElement('img', { src: this.props.player.track.image[1]['#text'], className: 'player_track_image' })
+						),
+						_react2.default.createElement(
+							'div',
+							{ className: 'col-sm-10' },
+							_react2.default.createElement(
+								'div',
+								{ className: 'col-sm-12 player_track_status_text' },
+								'Now Playing'
+							),
+							_react2.default.createElement(
+								'div',
+								{ className: 'col-sm-12 player_track_title' },
+								this.props.player.track.name
+							)
+						)
+					)
+				);
+			} else {
+				return _react2.default.createElement(
+					'div',
+					{ className: 'player_container' },
+					_react2.default.createElement(
+						'div',
+						{ className: 'player_track_info col-md-3' },
+						_react2.default.createElement(
+							'div',
+							{ className: 'col-sm-2' },
+							_react2.default.createElement('img', { className: 'player_track_image' })
+						),
+						_react2.default.createElement(
+							'div',
+							{ className: 'col-sm-10' },
+							_react2.default.createElement(
+								'div',
+								{ className: 'col-sm-12 player_track_status_text' },
+								'Now Playing'
+							),
+							_react2.default.createElement(
+								'div',
+								{ className: 'col-sm-12 player_track_title' },
+								'No Song'
+							)
+						)
+					)
+				);
+			}
 		}
 	}]);
 
@@ -49490,7 +49542,7 @@ var ShowcaseItem = function (_React$Component) {
 			return _react2.default.createElement(
 				'div',
 				{ className: 'showcase_item', onClick: function onClick() {
-						return _this2.props.selectSong(_this2.props.item.name);
+						return _this2.props.selectSong(_this2.props.item);
 					} },
 				_react2.default.createElement('img', { src: this.props.item.image[1]['#text'], className: 'showcase_image' }),
 				_react2.default.createElement(
@@ -49578,11 +49630,11 @@ exports.default = function (store) {
 		return function (action) {
 			switch (action.type) {
 				case 'NEW_SONG':
-					request(_Config2.default.SERVER_URL + '/api/fetchsong?name=' + action.payload, function (err, res, body) {
+					request(_Config2.default.SERVER_URL + '/api/fetchsong?name=' + action.payload.name, function (err, res, body) {
 						try {
 							console.log(body);
 							audio.pause();
-							audio.src = action.payload + '.mp3';
+							audio.src = 'music/' + action.payload.name + '.mp3';
 							audio.play();
 						} catch (e) {
 							console.log("error", err);
@@ -49633,13 +49685,13 @@ Object.defineProperty(exports, "__esModule", {
 });
 
 exports.default = function () {
-	var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+	var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
 	var action = arguments[1];
 
 	switch (action.type) {
 		case 'NEW_SONG':
 			return {
-				playing: action.payload
+				track: action.payload
 			};
 			break;
 	}

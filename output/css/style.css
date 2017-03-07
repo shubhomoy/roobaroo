@@ -11,6 +11,10 @@ body{
 	float: right;
 }
 
+.main_container {
+	padding-bottom: 200px;
+}
+
 .header {
 	background: #fff;
 	width: 100%;
@@ -93,6 +97,32 @@ body{
 	left: 0px;
 	width: 100%;
 	background: #fff;
-	padding: 10px;
+	height: 70px;
 	box-shadow: 0px -3px 5px rgba(0,0,0,0.2);
+}
+
+.player_track_info {
+	border-right: 1px solid rgba(0,0,0,0.3);
+	height: 70px;
+	padding: 10px;
+}
+
+.player_track_image {
+	height: 50px;
+	width: 50px;
+	background: #000;
+	float: left;
+}
+
+.player_track_status_text {
+	font-size: 10px;
+	font-style: italic;
+}
+
+.player_track_title {
+	font-weight: bold;
+	font-size: 15px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
 }
