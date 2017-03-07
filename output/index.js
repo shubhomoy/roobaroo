@@ -49328,7 +49328,7 @@ var Player = function (_React$Component) {
 	_createClass(Player, [{
 		key: 'render',
 		value: function render() {
-			if (this.props.player != null) {
+			if (Object.keys(this.props.player).length > 0) {
 				return _react2.default.createElement(
 					'div',
 					{ className: 'player_container' },
@@ -49346,13 +49346,22 @@ var Player = function (_React$Component) {
 							_react2.default.createElement(
 								'div',
 								{ className: 'col-sm-12 player_track_status_text' },
-								'Now Playing'
+								this.props.player.status
 							),
 							_react2.default.createElement(
 								'div',
 								{ className: 'col-sm-12 player_track_title' },
 								this.props.player.track.name
 							)
+						)
+					),
+					_react2.default.createElement(
+						'div',
+						{ className: 'col-md-9' },
+						_react2.default.createElement(
+							'audio',
+							{ controls: true },
+							_react2.default.createElement('source', { type: 'audio/mp3', src: this.props.player.track.apiUrl })
 						)
 					)
 				);
@@ -49381,6 +49390,15 @@ var Player = function (_React$Component) {
 								{ className: 'col-sm-12 player_track_title' },
 								'No Song'
 							)
+						)
+					),
+					_react2.default.createElement(
+						'div',
+						{ className: 'col-md-9' },
+						_react2.default.createElement(
+							'audio',
+							{ controls: true },
+							_react2.default.createElement('source', { type: 'audio/mp3', src: 'http://localhost:8080/music/Paris.mp3' })
 						)
 					)
 				);
@@ -49622,9 +49640,6 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var request = __webpack_require__(146);
 
-
-var audio = new Audio();
-
 exports.default = function (store) {
 	return function (next) {
 		return function (action) {
@@ -49632,10 +49647,8 @@ exports.default = function (store) {
 				case 'NEW_SONG':
 					request(_Config2.default.SERVER_URL + '/api/fetchsong?name=' + action.payload.name, function (err, res, body) {
 						try {
-							console.log(body);
-							audio.pause();
-							audio.src = 'music/' + action.payload.name + '.mp3';
-							audio.play();
+							action.type = 'SONG_LOADED';
+							action.payload.apiUrl = encodeURI(_Config2.default.SERVER_URL + '/music/' + action.payload.name);
 						} catch (e) {
 							console.log("error", err);
 						}
@@ -49685,14 +49698,22 @@ Object.defineProperty(exports, "__esModule", {
 });
 
 exports.default = function () {
-	var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
+	var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
 	var action = arguments[1];
 
 	switch (action.type) {
 		case 'NEW_SONG':
-			return {
-				track: action.payload
-			};
+			state = Object.assign({}, state, {
+				track: action.payload,
+				status: 'Preparing'
+			});
+			break;
+		case 'SONG_LOADED':
+			state = Object.assign({}, state, {
+				track: action.payload,
+				status: 'Now Playing'
+			});
+			console.log('loaded', state);
 			break;
 	}
 	return state;
