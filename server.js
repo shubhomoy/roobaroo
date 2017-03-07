@@ -14,7 +14,6 @@ app.get('/top-artists', function (request, response){
 });
 
 app.get('/api/fetchsong', function(req, res) {
-
 	Services.download(req.query.name, function(result) {
 		res.send(result);
 	});

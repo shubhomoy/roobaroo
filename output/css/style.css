@@ -126,3 +126,7 @@ body{
 	text-overflow: ellipsis;
 	white-space: nowrap;
 }
+
+.default_player {
+	display: none;
+}
