@@ -49333,10 +49333,20 @@ var Player = function (_React$Component) {
 		};
 
 		_this.playPause = _this.playPause.bind(_this);
+		_this.play = _this.play.bind(_this);
+		_this.listen = _this.listen.bind(_this);
 		return _this;
 	}
 
 	_createClass(Player, [{
+		key: 'pad',
+		value: function pad(num) {
+			var s = num + "";
+			while (s.length < 2) {
+				s = "0" + s;
+			}return s;
+		}
+	}, {
 		key: 'playPause',
 		value: function playPause() {
 			if (!this.rap.audioEl.paused) {
@@ -49350,6 +49360,24 @@ var Player = function (_React$Component) {
 					playPauseImage: 'images/pause.svg'
 				});
 			}
+		}
+	}, {
+		key: 'play',
+		value: function play() {
+			this.setState({
+				currentTime: 0,
+				playing: true,
+				duration: this.rap.audioEl.duration.toFixed(0)
+			});
+			console.log('Playing');
+		}
+	}, {
+		key: 'listen',
+		value: function listen() {
+			this.setState({
+				currentTime: this.state.currentTime + 1,
+				percentageCompleted: this.state.currentTime / this.state.duration * 100
+			});
 		}
 	}, {
 		key: 'render',
@@ -49388,12 +49416,35 @@ var Player = function (_React$Component) {
 						{ className: 'col-md-9' },
 						_react2.default.createElement(
 							'div',
-							{ className: 'play_btn', onClick: function onClick() {
-									return _this2.playPause();
-								} },
-							_react2.default.createElement('img', { src: this.state.playPauseImage, className: 'play_btn_image' })
+							{ className: 'col-md-1' },
+							_react2.default.createElement(
+								'div',
+								{ className: 'play_btn', onClick: function onClick() {
+										return _this2.playPause();
+									} },
+								_react2.default.createElement('img', { src: this.state.playPauseImage, className: 'play_btn_image' })
+							)
 						),
-						_react2.default.createElement(_reactAudioPlayer2.default, { className: 'default_player',
+						_react2.default.createElement(
+							'div',
+							{ className: 'col-md-6' },
+							_react2.default.createElement('div', { className: 'seekbar' }),
+							_react2.default.createElement('div', { className: 'seek_btn', style: { 'left': this.state.percentageCompleted + '%' } })
+						),
+						_react2.default.createElement(
+							'div',
+							{ className: 'col-md-2' },
+							_react2.default.createElement(
+								'div',
+								{ className: 'time' },
+								this.state.playing ? this.pad(Math.floor(this.state.currentTime / 60)) + ':' + this.pad(this.state.currentTime % 60) + ' / ' + this.pad(Math.floor(this.state.duration / 60)) + ':' + this.pad(this.state.duration % 60) : '00:00'
+							)
+						),
+						_react2.default.createElement(_reactAudioPlayer2.default, { className: 'default_player', onCanPlay: function onCanPlay() {
+								return _this2.play();
+							}, listenInterval: 1000, onListen: function onListen() {
+								return _this2.listen();
+							},
 							src: this.props.player.track.apiUrl, ref: function ref(c) {
 								return _this2.rap = c;
 							},
