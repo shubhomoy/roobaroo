@@ -54,50 +54,87 @@ body {
     .main_sidebar_container .item:select {
       background: #BF360C; }
 
+.current_header {
+  top: 0px;
+  left: 273px;
+  width: 50%;
+  min-width: 50%;
+  position: fixed;
+  height: 170px;
+  z-index: 3;
+  background: #fff; }
+  .current_header span {
+    margin-left: 20px;
+    font-weight: bold;
+    font-size: 20px;
+    position: absolute;
+    bottom: 0px;
+    padding-bottom: 20px;
+    padding-left: 20px;
+    color: #BF360C; }
+
 .main_container {
   position: relative;
-  top: 100px;
+  top: 180px;
   left: 280px;
   width: 40%;
   min-width: 40%; }
+  .main_container .loading_gif {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translate(-50%);
+    height: 50px;
+    width: 50px;
+    margin-top: 100px; }
   .main_container .list_items {
     width: 100%;
-    padding: 16px;
-    float: left;
+    height: 70px;
     transition: all 0.3s;
     border-left: 3px solid #fff;
     position: relative; }
-    .main_container .list_items div {
-      float: left; }
     .main_container .list_items .number {
       position: absolute;
       top: 50%;
+      padding-left: 10px;
       transform: translate(0, -50%);
       color: #9E9E9E; }
     .main_container .list_items .avatar {
       width: 50px;
       height: 50px;
       float: left;
-      margin-left: 20px;
-      border-radius: 5px; }
-    .main_container .list_items .text_1 {
-      color: #212121;
-      padding-left: 10px;
-      font-weight: bold;
-      float: left;
-      clear: right;
-      font-size: 16px; }
-    .main_container .list_items .text_2 {
-      color: #9E9E9E;
-      padding-left: 10px;
-      float: left;
-      clear: left;
-      font-size: 10px; }
+      margin-left: 30px;
+      border-radius: 5px;
+      margin-top: 10px; }
+    .main_container .list_items .text_holder {
+      position: absolute;
+      width: 60%;
+      left: 80px; }
+      .main_container .list_items .text_holder .text_1 {
+        color: #212121;
+        padding-left: 10px;
+        padding-top: 10px;
+        font-weight: bold;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        float: left;
+        clear: left;
+        width: 70%;
+        font-size: 16px; }
+      .main_container .list_items .text_holder .text_2 {
+        color: #9E9E9E;
+        padding-left: 10px;
+        float: left;
+        clear: left;
+        display: inline-block;
+        font-size: 10px; }
     .main_container .list_items .play_btn {
       width: 30px;
       height: 30px;
       float: right;
-      margin-top: 10px;
+      margin-top: 20px;
+      margin-right: 10px;
       display: none; }
     .main_container .list_items:hover {
       border-left: 3px solid #FF5722;
