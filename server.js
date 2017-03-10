@@ -12,6 +12,9 @@ app.get('/', function (request, response){
 app.get('/top-artists', function (request, response){
   response.sendFile(path.resolve(__dirname, 'index.html'))
 });
+app.get('/search', function (request, response){
+  response.sendFile(path.resolve(__dirname, 'index.html'))
+});
 
 app.get('/api/fetchsong', function(req, res) {
 	Services.download(req.query.name, function(result) {

@@ -79,6 +79,11 @@ body {
   left: 280px;
   width: 40%;
   min-width: 40%; }
+  .main_container .container_text {
+    padding-left: 30px;
+    padding-right: 30px;
+    color: #212121;
+    font-size: 15px; }
   .main_container .loading_gif {
     position: absolute;
     top: 100%;

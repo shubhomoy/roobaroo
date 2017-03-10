@@ -110,6 +110,13 @@ body {
 	width: $main-width/2.5;
 	min-width: $main-width/2.5;
 
+	.container_text {
+		padding-left: 30px;
+		padding-right: 30px;
+		color: $primaryTextColor;
+		font-size: 15px;
+	}
+
 	.loading_gif {
 		position: absolute;
 		top: 100%;
