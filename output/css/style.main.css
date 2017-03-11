@@ -73,12 +73,21 @@ body {
     padding-left: 20px;
     color: #BF360C; }
 
+.social_container {
+  position: fixed;
+  top: 180px;
+  left: 800px;
+  overflow: auto;
+  width: 33.33333%;
+  height: 50%; }
+
 .main_container {
   position: relative;
   top: 180px;
   left: 280px;
-  width: 40%;
-  min-width: 40%; }
+  width: 33.33333%;
+  max-width: 800px;
+  min-width: 400px; }
   .main_container .container_text {
     padding-left: 30px;
     padding-right: 30px;

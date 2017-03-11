@@ -103,12 +103,22 @@ body {
 	}
 }
 
+.social_container {
+	position: fixed;
+	top: 180px;
+	left: 800px;
+	overflow: auto;
+	width: $main-width/3;
+	height: 50%;
+}
+
 .main_container {
 	position: relative;
 	top: 180px;
 	left: 280px;
-	width: $main-width/2.5;
-	min-width: $main-width/2.5;
+	width: $main-width/3;
+	max-width: 800px;
+	min-width: 400px;
 
 	.container_text {
 		padding-left: 30px;
