@@ -3,7 +3,7 @@ var path = require('path');
 var env = process.env.WEBPACK_ENV;
 
 var DEV = path.resolve(__dirname, 'dev');
-var OUTPUT = path.resolve(__dirname, 'output');
+var OUTPUT = path.resolve(__dirname, 'assets/js');
 
 var config = {
 	entry: DEV + '/index.jsx',
