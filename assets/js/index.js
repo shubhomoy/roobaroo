@@ -50548,7 +50548,7 @@ var Player = function (_React$Component) {
 		value: function render() {
 			var _this2 = this;
 
-			if (Object.keys(this.props.player).length > 0) {
+			if (this.props.player != null) {
 				return _react2.default.createElement(
 					'div',
 					{ className: 'player_container' },
@@ -50895,15 +50895,20 @@ exports.default = function (store) {
 				case 'NEW_SONG':
 					request(_Config2.default.SERVER_URL + '/api/fetchsong?name=' + action.payload.name + ' ' + action.payload.artist.name, function (err, res, body) {
 						try {
-							console.log(body);
 							action.type = 'SONG_LOADED';
 							action.payload.apiUrl = encodeURI(_Config2.default.MUSIC_OUTPUT_URL + '/' + action.payload.name + ' ' + action.payload.artist.name + '.mp3');
+							console.log('waiting');
+							setTimeout(function () {
+								store.dispatch({
+									type: 'SONG_LOADED',
+									payload: action.payload
+								});
+								next(action);
+							}, 5000);
 						} catch (e) {
 							console.log("error", err);
 						}
-						next(action);
 					});
-					next(action);
 					break;
 			}
 			next(action);
@@ -50941,6 +50946,10 @@ exports.default = function (store) {
 								action.type = 'SEARCH_DONE';
 								body = JSON.parse(body);
 								action.payload = body.results.trackmatches.track;
+								store.dispatch({
+									type: 'SEARCH_DONE',
+									payload: action.payload
+								});
 							} catch (e) {
 								console.log("error", err);
 							}
@@ -51078,15 +51087,15 @@ Object.defineProperty(exports, "__esModule", {
 });
 
 exports.default = function () {
-	var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+	var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
 	var action = arguments[1];
 
 	switch (action.type) {
 		case 'NEW_SONG':
-			state = Object.assign({}, state, {
+			state = {
 				track: action.payload,
 				status: 'Preparing'
-			});
+			};
 			break;
 		case 'SONG_LOADED':
 			state = Object.assign({}, state, {
